@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using TrabalhoWesley.API.Data;
 using TrabalhoWesley.API.Models;
 
 namespace TrabalhoWesley.API.Controllers
@@ -13,43 +14,34 @@ namespace TrabalhoWesley.API.Controllers
     public class LojaController : ControllerBase
     {
 
-        public IEnumerable <Loja> _loja = new Loja[]{
-               new Loja(){
-                clienteId = 1, 
-               nome = "Mateus",
-               email = "mateus@gmail.com",
-               telefone = "12345678"
-               },
-               new Loja(){
-                clienteId = 2, 
-               nome = "Maria",
-               email = "maria@gmail.com",
-               telefone = "12345679"
-               }
+        public IEnumerable<Loja> _loja = new Loja[]{
+              
            };
-        public LojaController()
+        private readonly DataContext _context;
+        public LojaController(DataContext context)
         {
-            
+            _context = context;
+
         }
 
         [HttpGet]
         public IEnumerable<Loja> Get()
         {
-           return _loja;
+            return _context.Loja;
         }
 
-        
+
         [HttpGet("{id}")]
-        public IEnumerable<Loja> GetbyId(int id)
+        public Loja GetbyId(int id)
         {
-           return _loja.Where(Loja => Loja.clienteId == id);
+            return _context.Loja.FirstOrDefault(Loja => Loja.Id == id);
         }
 
         [HttpPost]
         public String Post()
         {
-           return "Post";
+            return "Post";
         }
-        
+
     }
 }

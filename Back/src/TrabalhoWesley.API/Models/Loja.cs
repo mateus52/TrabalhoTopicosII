@@ -2,7 +2,7 @@ namespace TrabalhoWesley.API.Models
 {
     public class Loja
     {
-        public int clienteId { get; set; }
+        public int Id { get; set; }
 
         public string  nome { get; set; }
 
